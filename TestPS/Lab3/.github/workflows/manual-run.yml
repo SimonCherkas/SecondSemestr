@@ -1,0 +1,21 @@
+name: Manual Lab Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Your name'
+        required: true
+        default: 'Executer'
+
+jobs:
+  run-lab:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Show name (if not Executer)
+      if: ${{ github.event.inputs.name != 'Executer' }}
+      run: echo "Hello ${{ github.event.inputs.name }}! Running the lab..."
+
+    - name: Run lab file
+      run: python app.py
